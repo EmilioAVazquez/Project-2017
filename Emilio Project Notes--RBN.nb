@@ -1,0 +1,167 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5269,        157]
+NotebookOptionsPosition[      3881,        114]
+NotebookOutlinePosition[      4238,        130]
+CellTagsIndexPosition[      4195,        127]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Emilio Vazquez", "Subsection",
+ CellChangeTimes->{{3.70707305809578*^9, 
+  3.707073066157955*^9}},ExpressionUUID->"d2e4dce1-9468-439a-bc7f-\
+f09a7bc5dba4"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+in Chicago, volunteer at Fields museum, explaining the science of the \
+exhibits: geology, anthropology, kids & adults\
+\>", "Item",
+ CellChangeTimes->{{3.707074567485725*^9, 
+  3.7070747033858547`*^9}},ExpressionUUID->"e077efc9-cc89-4a54-9364-\
+589b4a44d9eb"],
+
+Cell["\<\
+global life plan: engineering, application of science, not quite sure yet: \
+physics, quantum mechanics, engineering\
+\>", "Item",
+ CellChangeTimes->{{3.707074567485725*^9, 
+  3.707074771293291*^9}},ExpressionUUID->"1efbeb20-9687-4cc0-8897-\
+9d25dbb2b911"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Discussion", "Subsubsection",
+ CellChangeTimes->{{3.7070870014642973`*^9, 
+  3.707087004766686*^9}},ExpressionUUID->"5f24e14b-2ac5-4eff-b012-\
+29c5597c9c38"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+SW: take images of mechanical diagrams, turn them into a Graph, and then \
+solve the physics problem (forces at equilibrium)\
+\>", "Item",
+ CellChangeTimes->{
+  3.707087006515738*^9, {3.707087179875918*^9, 3.707087201754485*^9}, {
+   3.707087240616395*^9, 3.7070872670703087`*^9}, {3.707087311035233*^9, 
+   3.707087311035469*^9}, {3.70708940354564*^9, 3.7070894238410597`*^9}, {
+   3.70720657966781*^9, 
+   3.7072065807542257`*^9}},ExpressionUUID->"e20b605a-0ee0-4242-b334-\
+cff8b88804d0"],
+
+Cell[CellGroupData[{
+
+Cell["Binarize", "Subitem",
+ CellChangeTimes->{
+  3.707087006515738*^9, {3.707087179875918*^9, 3.707087201754485*^9}, {
+   3.707087240616395*^9, 3.7070872670703087`*^9}, {3.707087315123538*^9, 
+   3.707087317426777*^9}},ExpressionUUID->"08449948-e02d-4942-8c41-\
+6f81d8284816"],
+
+Cell["MorphologicalGraph", "Subitem",
+ CellChangeTimes->{
+  3.707087006515738*^9, {3.707087179875918*^9, 3.707087201754485*^9}, {
+   3.707087240616395*^9, 3.7070872670703087`*^9}, {3.707087315123538*^9, 
+   3.7070873246510344`*^9}, {3.7070874212199163`*^9, 
+   3.707087421220821*^9}},ExpressionUUID->"2b8b57d8-d486-4b98-af5a-\
+a8ef62381403"],
+
+Cell["ColorNegate", "Subitem",
+ CellChangeTimes->{
+  3.707087006515738*^9, {3.707087179875918*^9, 3.707087201754485*^9}, {
+   3.707087240616395*^9, 3.7070872670703087`*^9}, {3.707087315123538*^9, 
+   3.7070873246510344`*^9}, {3.707087421860901*^9, 3.707087424108651*^9}, {
+   3.7070874968146963`*^9, 
+   3.707087496815588*^9}},ExpressionUUID->"870c6f8b-b1fb-4b44-a29b-\
+ec6faa6a46ca"],
+
+Cell["training set of truss shapes", "Subitem",
+ CellChangeTimes->{
+  3.707087006515738*^9, {3.707087179875918*^9, 3.707087201754485*^9}, {
+   3.707087240616395*^9, 3.7070872670703087`*^9}, {3.707087315123538*^9, 
+   3.7070873246510344`*^9}, {3.707087421860901*^9, 3.707087424108651*^9}, {
+   3.707087497208137*^9, 3.7070875117466183`*^9}, {3.707087594674164*^9, 
+   3.707087594675077*^9}},ExpressionUUID->"3376ce88-95c5-4113-b8a4-\
+b66370ddeee0"]
+}, Open  ]],
+
+Cell["\<\
+SW: see Giulio Alessandrini for help with image processing functions\
+\>", "Item",
+ CellChangeTimes->{{3.707087595804555*^9, 3.707087608329503*^9}, {
+  3.707089356742591*^9, 3.707089390674835*^9}, {3.707206586120614*^9, 
+  3.707206587185676*^9}},ExpressionUUID->"07f93bab-a918-479f-b435-\
+df3fa2136460"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{808, 845},
+WindowMargins->{{340, Automatic}, {-24, Automatic}},
+FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 27, \
+2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 161, 3, 44, "Subsection", "ExpressionUUID" -> \
+"d2e4dce1-9468-439a-bc7f-f09a7bc5dba4"],
+Cell[CellGroupData[{
+Cell[766, 29, 270, 6, 45, "Item", "ExpressionUUID" -> \
+"e077efc9-cc89-4a54-9364-589b4a44d9eb"],
+Cell[1039, 37, 266, 6, 45, "Item", "ExpressionUUID" -> \
+"1efbeb20-9687-4cc0-8897-9d25dbb2b911"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1342, 48, 163, 3, 35, "Subsubsection", "ExpressionUUID" -> \
+"5f24e14b-2ac5-4eff-b012-29c5597c9c38"],
+Cell[CellGroupData[{
+Cell[1530, 55, 500, 10, 45, "Item", "ExpressionUUID" -> \
+"e20b605a-0ee0-4242-b334-cff8b88804d0"],
+Cell[CellGroupData[{
+Cell[2055, 69, 277, 5, 26, "Subitem", "ExpressionUUID" -> \
+"08449948-e02d-4942-8c41-6f81d8284816"],
+Cell[2335, 76, 341, 6, 26, "Subitem", "ExpressionUUID" -> \
+"2b8b57d8-d486-4b98-af5a-a8ef62381403"],
+Cell[2679, 84, 384, 7, 26, "Subitem", "ExpressionUUID" -> \
+"870c6f8b-b1fb-4b44-a29b-ec6faa6a46ca"],
+Cell[3066, 93, 447, 7, 26, "Subitem", "ExpressionUUID" -> \
+"3376ce88-95c5-4113-b8a4-b66370ddeee0"]
+}, Open  ]],
+Cell[3528, 103, 313, 6, 30, "Item", "ExpressionUUID" -> \
+"07f93bab-a918-479f-b435-df3fa2136460"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

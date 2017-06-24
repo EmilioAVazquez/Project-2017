@@ -1,0 +1,483 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     19240,        473]
+NotebookOptionsPosition[     10173,        265]
+NotebookOutlinePosition[     16511,        406]
+CellTagsIndexPosition[     16468,        403]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Truss Digram Visual Analyser ", "Title",
+ CellChangeTimes->{{3.700774153171832*^9, 3.700774159196458*^9}, {
+  3.705104157104324*^9, 3.7051041574063416`*^9}, {3.70568519155404*^9, 
+  3.705685209964157*^9}, {3.707250384236677*^9, 
+  3.707250397811924*^9}},ExpressionUUID->"1540280c-9847-434b-9f94-\
+acfadc367ad7"],
+
+Cell["\<\
+The following text summarizes the process of development of a truss diagram \
+visual analyser\
+\>", "Abstract",
+ CellChangeTimes->{{3.700774172671139*^9, 3.700774220850109*^9}, {
+  3.700778895632181*^9, 3.700778896308676*^9}, {3.7051041615775795`*^9, 
+  3.705104170817108*^9}, {3.707250403761437*^9, 
+  3.707250459063191*^9}},ExpressionUUID->"d587f198-0b01-470a-81fd-\
+9a0d4daddd3d"],
+
+Cell[CellGroupData[{
+
+Cell["Abstract ", "Section",
+ CellChangeTimes->{{3.700774708350976*^9, 3.700774714085747*^9}, {
+  3.7051042493566003`*^9, 3.7051042513157125`*^9}, {3.705686166481989*^9, 
+  3.7056861672865133`*^9}, {3.707250354539465*^9, 
+  3.707250356588943*^9}},ExpressionUUID->"b11749f3-3287-45dd-b72e-\
+2e81b9bc5536"],
+
+Cell["\<\
+The problem behind the developing a visual analyser is to improve the  \
+development of simple structure. The first step is to translate the diagram \
+image to a data structure. Afterwards, the data structure information will \
+fill some variables in a matrix and some computation can be done to come up \
+with functions and vectors. Finally, the information is displayed in a nice \
+interface.\
+\>", "Text",
+ CellChangeTimes->{{3.705104661930198*^9, 3.705104689215759*^9}, {
+  3.7051047393916287`*^9, 3.705104783753166*^9}, {3.7051049729169855`*^9, 
+  3.7051050045267935`*^9}, {3.705169822193218*^9, 3.705169825188218*^9}, {
+  3.7072538002718563`*^9, 3.707253813174242*^9}, {3.707254066876943*^9, 
+  3.707254132363963*^9}, {3.707254312070047*^9, 3.707254400111321*^9}, {
+  3.707254487761009*^9, 3.70725452282268*^9}, {3.7072545702213583`*^9, 
+  3.707254593149907*^9}, {3.707254638900515*^9, 
+  3.707254670876752*^9}},ExpressionUUID->"57c0fb1d-792e-447a-920e-\
+cd5f6352f191"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Plan", "Section",
+ CellChangeTimes->{{3.700774708350976*^9, 3.700774714085747*^9}, {
+  3.7051042493566003`*^9, 3.7051042513157125`*^9}, {3.705686166481989*^9, 
+  3.7056861672865133`*^9}, {3.707250354539465*^9, 
+  3.707250369836771*^9}},ExpressionUUID->"2244f177-6ae1-430b-b6d4-\
+d909b88166a9"],
+
+Cell[CellGroupData[{
+
+Cell["Step 1", "Subsubsection",
+ CellChangeTimes->{{3.707250512402218*^9, 
+  3.707250517737842*^9}},ExpressionUUID->"57fe799c-ed9b-4c90-bdc9-\
+c0985790e4a2"],
+
+Cell["\<\
+The first part of the development of the visual analyser is to translate an \
+image file to a computable structure. This process can be either archived by \
+a machine learning approach or a built-in function, such as morphology. In \
+other words, the program inputs an image file and the outputs is a computable \
+structure. \
+\>", "Text",
+ CellChangeTimes->{{3.700774312865305*^9, 3.700774350341485*^9}, {
+  3.7051042689957237`*^9, 3.7051043842073135`*^9}, {3.705105072313671*^9, 
+  3.705105092602831*^9}, {3.705683778330366*^9, 3.705683783009487*^9}, {
+  3.707250555824684*^9, 3.707250585536297*^9}, {3.707251940183382*^9, 
+  3.707251994840407*^9}, {3.707252024972125*^9, 3.707252071007106*^9}, {
+  3.7072521023545933`*^9, 3.7072521212710752`*^9}, {3.70725215551807*^9, 
+  3.7072521961670322`*^9}, {3.707252333943516*^9, 
+  3.707252381284958*^9}},ExpressionUUID->"61548b36-50aa-48e3-86b4-\
+eecbecf0331c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Step 2 ", "Subsubsection",
+ CellChangeTimes->{{3.707250521113763*^9, 
+  3.70725052396988*^9}},ExpressionUUID->"cee3afbb-9b05-4e7b-a7f3-\
+e5c6ab395e21"],
+
+Cell["\<\
+Once the image is analysed, the data structure represents some general values \
+in the overall physical model. The way to  represent all the parameters of \
+the system is to same the existing and missing variables in a matrix with non \
+constant 2D dimension.  \
+\>", "Text",
+ CellChangeTimes->{{3.707252300717875*^9, 3.70725230249218*^9}, {
+  3.707252399012905*^9, 3.707252400533144*^9}, {3.7072524561545067`*^9, 
+  3.707252514384488*^9}, {3.7072525595672073`*^9, 3.70725261925567*^9}, {
+  3.707252666660728*^9, 3.707252670820834*^9}, {3.707252718133841*^9, 
+  3.707252759637123*^9}, {3.7072528683626757`*^9, 
+  3.7072530017010803`*^9}},ExpressionUUID->"52b77ad1-b3e8-4fe7-8300-\
+f3d6e5b861c1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Step 3", "Subsubsection",
+ CellChangeTimes->{{3.707250526384335*^9, 
+  3.70725052760116*^9}},ExpressionUUID->"859f6c22-3f4b-4650-a673-\
+2c9ba8a7da92"],
+
+Cell["\<\
+Once all all the known and unknown variables are set up in a matrix, a series \
+ computations with calculate for the required model setting the unknown \
+variables as independent  and the unknown variable as dependent.To deploy \
+this step is essential to understand the physical laws an analysis of this \
+system.  \
+\>", "Text",
+ CellChangeTimes->{{3.707253008092454*^9, 3.707253022189227*^9}, {
+  3.707253057629385*^9, 
+  3.70725328868997*^9}},ExpressionUUID->"a531ac76-3298-478c-b903-\
+bc8b2f053924"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Step 4", "Subsubsection",
+ CellChangeTimes->{{3.707253296521593*^9, 3.7072533076651287`*^9}, {
+  3.70725350378911*^9, 
+  3.707253507578578*^9}},ExpressionUUID->"2e4cb91b-afc1-4dc9-9d0a-\
+07c853fec59a"],
+
+Cell["\<\
+The final step is to output the series of functions, scalars quantities, \
+plots and animations in a nice interface form. Some parameters can be also be \
+set at this point to output . \
+\>", "Text",
+ CellChangeTimes->{{3.707253509618783*^9, 3.7072536552892323`*^9}, {
+  3.707253766606056*^9, 
+  3.7072537751183*^9}},ExpressionUUID->"5fa7ca37-f483-4863-aa8d-78e0c0858767"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Requirements", "Section",
+ CellChangeTimes->{{3.700774708350976*^9, 3.700774714085747*^9}, {
+  3.7051042493566003`*^9, 3.7051042513157125`*^9}, {3.705686166481989*^9, 
+  3.7056861672865133`*^9}, {3.707250354539465*^9, 3.707250379188208*^9}, {
+  3.7072547544026318`*^9, 
+  3.7072547637776546`*^9}},ExpressionUUID->"79f9eb7c-c7d7-4ff5-856c-\
+b8f51b3052ab"],
+
+Cell["\<\
+A data base of at least 80 truss diagrams is going to be required to complete \
+the first part of the projects. For the second and third part a knowledge of \
+analysis of truss is required. \
+\>", "Text",
+ CellChangeTimes->{{3.700774312865305*^9, 3.700774350341485*^9}, {
+  3.7051042689957237`*^9, 3.7051043842073135`*^9}, {3.705105072313671*^9, 
+  3.705105092602831*^9}, {3.705683778330366*^9, 3.705683783009487*^9}, {
+  3.7072547780740757`*^9, 
+  3.707254954134809*^9}},ExpressionUUID->"3daca618-3a50-4990-89e9-\
+4745e4ed2016"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Notes ",
+ StyleBox[" ",
+  FontSize->18,
+  FontColor->GrayLevel[0.5]]
+}], "Section",
+ CellChangeTimes->{{3.70510464885445*^9, 3.7051046548567934`*^9}, {
+  3.7051046932679906`*^9, 3.7051047014174566`*^9}, {3.705686116931855*^9, 
+  3.7056861543411007`*^9}, {3.707254049899527*^9, 
+  3.7072540572863607`*^9}},ExpressionUUID->"fd96a2cb-090e-4c78-b30c-\
+23cca122d549"],
+
+Cell["\<\
+Some important function to translate the images to data structures are \
+morphology. Search and solve multiple problems using the truss analysis. \
+Finally, discuss with Judo about visual analysis. \
+\>", "Text",
+ CellChangeTimes->{{3.705105405379721*^9, 3.7051054963769255`*^9}, {
+  3.705105533220033*^9, 3.705105546902816*^9}, {3.7051057273781385`*^9, 
+  3.7051057494323997`*^9}, {3.705169934558218*^9, 3.705169973362218*^9}, {
+  3.7072550395716667`*^9, 
+  3.70725518707403*^9}},ExpressionUUID->"340eb0b8-954f-4e1b-9405-\
+1f0b98f019a1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Further Explorations", "FurtherExplorationSection",
+ CellChangeTimes->{{3.70077612322993*^9, 3.7007761320921593`*^9}, {
+  3.7007787731699142`*^9, 
+  3.70077877480995*^9}},ExpressionUUID->"90596ffc-19ba-482f-9c57-\
+72e71c22c63b"],
+
+Cell["Name of a related topic for exploration", "FurtherExploration",
+ CellChangeTimes->{{3.7007765492418337`*^9, 3.7007765636102467`*^9}, {
+  3.705104213701561*^9, 3.7051042224510612`*^9}, {3.7051697227932177`*^9, 
+  3.7051697367862177`*^9}, {3.7056847753333597`*^9, 3.7056847788413363`*^9}, {
+  3.705686193025524*^9, 
+  3.7056861967297907`*^9}},ExpressionUUID->"3e2da622-0fcd-4c5d-9056-\
+2586e280ae34"],
+
+Cell["\<\
+Name of another related topics for exploration (repeat as needed)\
+\>", "FurtherExploration",
+ CellChangeTimes->{{3.7007765492418337`*^9, 3.7007765636102467`*^9}, {
+  3.705104213701561*^9, 3.7051042224510612`*^9}, {3.705105582902875*^9, 
+  3.7051055862950687`*^9}, {3.705686185124048*^9, 
+  3.705686188552953*^9}},ExpressionUUID->"4832512d-5945-4b46-badf-\
+d372fd0625a4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Authorship information", "AuthorshipSection",
+ CellChangeTimes->{{3.705105762145127*^9, 
+  3.7051057665253773`*^9}},ExpressionUUID->"ec4fd9e9-5a96-4e47-9f2e-\
+f878efeb5fcc"],
+
+Cell["Emilio Andres Vazquez", "Authorship",
+ CellChangeTimes->{{3.7051057700535793`*^9, 3.7051057808261957`*^9}, {
+  3.707253844319173*^9, 
+  3.707253879936824*^9}},ExpressionUUID->"ff8a3574-11ce-4854-b36a-\
+b8d1ce5eca60"],
+
+Cell["23 June 2017", "Authorship",
+ CellChangeTimes->{{3.705105786521521*^9, 3.7051057998362827`*^9}, {
+  3.707254036443921*^9, 
+  3.707254039035975*^9}},ExpressionUUID->"b5381026-f3bd-4f2c-936e-\
+821461777219"],
+
+Cell["emibars97@gmail.com", "Authorship",
+ CellChangeTimes->{{3.7051058070526953`*^9, 3.705105841815684*^9}, {
+  3.707254921560391*^9, 
+  3.707254925063705*^9}},ExpressionUUID->"ee067428-8fe8-48e5-ad00-\
+5a09302f27b8"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{808, 911},
+WindowMargins->{{316, Automatic}, {Automatic, 0}},
+DockedCells->Cell[
+  BoxData[
+   TagBox[
+    GridBox[{{
+       ItemBox["\"\"", ItemSize -> 0.2, StripOnInput -> False], 
+       DynamicModuleBox[{}, 
+        ActionMenuBox[
+        "\"Insert\"", {
+         "\"Section\"" :> 
+          Module[{$CellContext`nb = ButtonNotebook[]}, 
+            Exploration`MoveCursorAfterCellPosition[$CellContext`nb]; 
+            NotebookWrite[$CellContext`nb, 
+              Cell[
+               CellGroupData[{
+                 Cell["XXXX", "Section"], 
+                 Cell["XXXX", "Text"], 
+                 Cell["XXXX", "Direction"], 
+                 Cell[
+                  BoxData["XXXX"], "Input"]}, Open]], All]; 
+            SelectionMove[$CellContext`nb, Before, Cell]; 
+            SelectionMove[$CellContext`nb, Next, Cell]; 
+            SelectionMove[$CellContext`nb, All, CellContents]], Delimiter, 
+          "\"Text\"" :> 
+          Module[{$CellContext`nb = ButtonNotebook[]}, 
+            Exploration`MoveCursorAfterCellPosition[$CellContext`nb]; 
+            NotebookWrite[$CellContext`nb, 
+              Cell["XXXX", "Text"], All]; 
+            SelectionMove[$CellContext`nb, All, CellContents]], 
+          "\"Direction\"" :> 
+          Module[{$CellContext`nb = ButtonNotebook[]}, 
+            Exploration`MoveCursorAfterCellPosition[$CellContext`nb]; 
+            NotebookWrite[$CellContext`nb, 
+              Cell["XXXX", "Direction"], All]; 
+            SelectionMove[$CellContext`nb, All, CellContents]], 
+          "\"Further Exploration\"" :> 
+          Module[{$CellContext`nb = ButtonNotebook[]}, 
+            Exploration`MoveCursorAfterCellPosition[$CellContext`nb]; 
+            NotebookWrite[$CellContext`nb, 
+              Cell["XXXX", "FurtherExploration"], All]; 
+            SelectionMove[$CellContext`nb, All, CellContents]]}, Method -> 
+         "Queued", Appearance -> "PopupMenu", FrameMargins -> 2.4], 
+        Initialization :> (Exploration`MoveCursorAfterCellPosition[
+           Pattern[$CellContext`nb, 
+            Blank[]]] := Which[
+           MatchQ[
+            Developer`CellInformation[$CellContext`nb], {
+             Repeated[{
+               BlankSequence[], "CursorPosition" -> "CellBracket", 
+               BlankSequence[]}]}], 
+           SelectionMove[$CellContext`nb, After, Cell], 
+           Developer`CellInformation[$CellContext`nb] =!= $Failed, 
+           Module[{$CellContext`lnkre}, 
+             While[(LinkWrite[$ParentLink, 
+                 
+                 FrontEnd`CellInformation[$CellContext`nb]]; \
+$CellContext`lnkre = LinkRead[$ParentLink]); 
+              And[$CellContext`lnkre =!= $Failed, 
+                Not[
+                 MemberQ[
+                  ReplaceAll["CursorPosition", $CellContext`lnkre], 
+                  "CellBracket"]]], 
+              FrontEndExecute[
+               
+               FrontEnd`SelectionMove[$CellContext`nb, All, Cell, AutoScroll -> 
+                False]]]]; SelectionMove[$CellContext`nb, After, Cell]]), 
+        DynamicModuleValues :> {}], 
+       ItemBox["\"\"", ItemSize -> Fit, StripOnInput -> False], 
+       ButtonBox["\"Sample\"", ButtonFunction :> NotebookOpen[
+          
+          FileNameJoin[{$UserBaseDirectory, "Applications", 
+            "SummerSchoolTemplates", "FrontEnd", "TextResources", 
+            "TopicExplorationExample.nb"}]], Appearance -> Automatic, 
+        Evaluator -> Automatic, Method -> "Queued"]}}, AutoDelete -> False, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]], 
+  "DockedCell"],
+CellLabelAutoDelete->False,
+FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 16, \
+2017)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[StyleDefinitions -> "Default.nb"]], 
+   Cell[
+    StyleData["Title"], FontFamily -> "Source Sans Pro", FontTracking -> -0.8,
+     FontColor -> RGBColor[0.65, 0, 0]], 
+   Cell[
+    StyleData["Abstract", StyleDefinitions -> StyleData["Text"]], FontSize -> 
+    16, FontSlant -> "Italic", FontColor -> GrayLevel[0.4]], 
+   Cell[
+    StyleData["Section"], CellFrame -> False, FontFamily -> "Source Sans Pro",
+     FontTracking -> -0.5, $CellContext`ReturnCreatesNewCell -> 
+    True, $CellContext`DefaultReturnCreatedCellStyle -> "Text"], 
+   Cell[
+    StyleData["FurtherExplorationSection"], 
+    CellMargins -> {{28, Inherited}, {6, 24}}, 
+    CellGroupingRules -> {"SectionGrouping", 30}, DefaultNewCellStyle -> 
+    "FurtherExploration", FontFamily -> "Source Sans Pro Semibold", FontSize -> 
+    22, FontColor -> GrayLevel[0.35]], 
+   Cell[
+    StyleData["FurtherExploration", StyleDefinitions -> StyleData["Text"]], 
+    CellMargins -> {{66, 10}, {5, 5}}, FontSize -> 14, FontWeight -> "Bold", 
+    FontColor -> GrayLevel[0.5], $CellContext`ReturnCreatesNewCell -> True], 
+   Cell[
+    StyleData["AuthorshipSection"], CellMargins -> {{28, Inherited}, {6, 24}},
+     CellGroupingRules -> {"SectionGrouping", 30}, DefaultNewCellStyle -> 
+    "FurtherExploration", FontFamily -> "Source Sans Pro Semibold", FontSize -> 
+    22, FontColor -> GrayLevel[0.35]], 
+   Cell[
+    StyleData["Authorship", StyleDefinitions -> StyleData["Text"]], 
+    CellMargins -> {{66, 10}, {4, 4}}, FontSize -> 14, FontColor -> 
+    GrayLevel[0.5], $CellContext`ReturnCreatesNewCell -> True], 
+   Cell[
+    StyleData["Text"], DefaultNewCellStyle -> 
+    "Direction", $CellContext`ReturnCreatesNewCell -> 
+    True, $CellContext`DefaultReturnCreatedCellStyle -> "Direction"], 
+   Cell[
+    StyleData["Direction", StyleDefinitions -> StyleData["Text"]], 
+    CellDingbat -> 
+    StyleBox["\[FilledSmallSquare]", FontColor -> GrayLevel[0.7]], 
+    CellMargins -> {{78, 10}, {6, 7}}, CellFrameLabelMargins -> 4, 
+    MenuSortingValue -> 10000, MenuCommandKey -> "8", FontSize -> 14, 
+    FontWeight -> "Plain", FontColor -> 
+    GrayLevel[0.4], $CellContext`DefaultReturnCreatedCellStyle -> "Input"], 
+   Cell[
+    StyleData["Code"], MenuCommandKey -> None]}, Visible -> False, 
+  FrontEndVersion -> 
+  "11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 16, 2017)", 
+  StyleDefinitions -> "PrivateStylesheetFormatting.nb"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 317, 5, 97, "Title", "ExpressionUUID" -> \
+"1540280c-9847-434b-9f94-acfadc367ad7"],
+Cell[900, 29, 393, 8, 33, "Abstract", "ExpressionUUID" -> \
+"d587f198-0b01-470a-81fd-9a0d4daddd3d"],
+Cell[CellGroupData[{
+Cell[1318, 41, 304, 5, 62, "Section", "ExpressionUUID" -> \
+"b11749f3-3287-45dd-b72e-2e81b9bc5536"],
+Cell[1625, 48, 985, 16, 87, "Text", "ExpressionUUID" -> \
+"57c0fb1d-792e-447a-920e-cd5f6352f191"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2647, 69, 299, 5, 62, "Section", "ExpressionUUID" -> \
+"2244f177-6ae1-430b-b6d4-d909b88166a9"],
+Cell[CellGroupData[{
+Cell[2971, 78, 157, 3, 35, "Subsubsection", "ExpressionUUID" -> \
+"57fe799c-ed9b-4c90-bdc9-c0985790e4a2"],
+Cell[3131, 83, 916, 15, 68, "Text", "ExpressionUUID" -> \
+"61548b36-50aa-48e3-86b4-eecbecf0331c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4084, 103, 157, 3, 35, "Subsubsection", "ExpressionUUID" -> \
+"cee3afbb-9b05-4e7b-a7f3-e5c6ab395e21"],
+Cell[4244, 108, 705, 12, 68, "Text", "ExpressionUUID" -> \
+"52b77ad1-b3e8-4fe7-8300-f3d6e5b861c1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4986, 125, 156, 3, 35, "Subsubsection", "ExpressionUUID" -> \
+"859f6c22-3f4b-4650-a673-2c9ba8a7da92"],
+Cell[5145, 130, 514, 10, 68, "Text", "ExpressionUUID" -> \
+"a531ac76-3298-478c-b903-bc8b2f053924"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5696, 145, 207, 4, 35, "Subsubsection", "ExpressionUUID" -> \
+"2e4cb91b-afc1-4dc9-9d0a-07c853fec59a"],
+Cell[5906, 151, 382, 7, 49, "Text", "ExpressionUUID" -> \
+"5fa7ca37-f483-4863-aa8d-78e0c0858767"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6337, 164, 360, 6, 62, "Section", "ExpressionUUID" -> \
+"79f9eb7c-c7d7-4ff5-856c-b8f51b3052ab"],
+Cell[6700, 172, 539, 10, 49, "Text", "ExpressionUUID" -> \
+"3daca618-3a50-4990-89e9-4745e4ed2016"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7276, 187, 380, 10, 62, "Section", "ExpressionUUID" -> \
+"fd96a2cb-090e-4c78-b30c-23cca122d549"],
+Cell[7659, 199, 548, 10, 49, "Text", "ExpressionUUID" -> \
+"340eb0b8-954f-4e1b-9405-1f0b98f019a1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8244, 214, 234, 4, 59, "FurtherExplorationSection", "ExpressionUUID" -> \
+"90596ffc-19ba-482f-9c57-72e71c22c63b"],
+Cell[8481, 220, 404, 6, 26, "FurtherExploration", "ExpressionUUID" -> \
+"3e2da622-0fcd-4c5d-9056-2586e280ae34"],
+Cell[8888, 228, 381, 7, 26, "FurtherExploration", "ExpressionUUID" -> \
+"4832512d-5945-4b46-badf-d372fd0625a4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9306, 240, 179, 3, 59, "AuthorshipSection", "ExpressionUUID" -> \
+"ec4fd9e9-5a96-4e47-9f2e-f878efeb5fcc"],
+Cell[9488, 245, 222, 4, 24, "Authorship", "ExpressionUUID" -> \
+"ff8a3574-11ce-4854-b36a-b8d1ce5eca60"],
+Cell[9713, 251, 211, 4, 24, "Authorship", "ExpressionUUID" -> \
+"b5381026-f3bd-4f2c-936e-821461777219"],
+Cell[9927, 257, 218, 4, 24, "Authorship", "ExpressionUUID" -> \
+"ee067428-8fe8-48e5-ad00-5a09302f27b8"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
